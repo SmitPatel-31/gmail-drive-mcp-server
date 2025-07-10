@@ -4,8 +4,24 @@ import fs from 'fs';
 import readline from 'readline';
 
 const SCOPES = [
-  'https://www.googleapis.com/auth/gmail.readonly',
-  'https://www.googleapis.com/auth/drive.readonly'
+  'https://www.googleapis.com/auth/gmail.readonly',    // Read emails
+  'https://www.googleapis.com/auth/gmail.send',        // Send emails
+  'https://www.googleapis.com/auth/gmail.modify',      // Modify emails (delete, archive, star, etc.)
+  'https://www.googleapis.com/auth/gmail.labels',      // Manage labels
+  'https://www.googleapis.com/auth/gmail.compose',     // Compose emails
+  
+  // Google Drive scopes
+  'https://www.googleapis.com/auth/drive',             // Full Drive access
+  'https://www.googleapis.com/auth/drive.file',        // Per-file access
+  'https://www.googleapis.com/auth/drive.metadata', 
+
+  'https://www.googleapis.com/auth/calendar',          // Full Calendar access
+  'https://www.googleapis.com/auth/calendar.events',
+
+  'https://www.googleapis.com/auth/meetings.space.created',
+  'https://www.googleapis.com/auth/meetings.space.readonly',
+  'https://www.googleapis.com/auth/meetings.space.settings'
+
 ];
 
 async function authorize() {
