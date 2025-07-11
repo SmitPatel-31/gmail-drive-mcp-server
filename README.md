@@ -272,38 +272,7 @@ node test-auth.js
 | `INVALID_PERMISSIONS` | Scope issues | Check OAuth2 scopes |
 | `NETWORK_ERROR` | Connection problems | Check internet connection |
 
-## 🧪 Development
 
-### Project Structure
-
-```
-gmail-drive-mcp-server/
-├── src/
-│   ├── auth.js              # Authentication management
-│   ├── gmailService.js      # Gmail API operations
-│   ├── driveService.js      # Drive API operations  
-│   ├── calendarService.js   # Calendar API operations
-│   ├── meetIntegration.js   # Meet workflow coordination
-│   ├── toolHandlers.js      # MCP tool request routing
-│   ├── toolDefinitions.js   # Tool schemas and validation
-│   ├── timezoneHelper.js    # Timezone utilities
-│   └── server.js            # Main MCP server
-├── config/
-│   ├── settings.js          # Configuration management
-│   └── scopes.js            # Google API scopes
-├── tests/
-│   ├── auth.test.js         # Authentication tests
-│   ├── gmail.test.js        # Gmail service tests
-│   └── integration.test.js  # End-to-end tests
-├── docs/
-│   ├── API.md               # API documentation
-│   ├── SETUP.md             # Detailed setup guide
-│   └── EXAMPLES.md          # Usage examples
-├── credentials.json         # Google OAuth2 credentials
-├── token.json              # Access tokens (auto-generated)
-├── package.json            # Project dependencies
-└── README.md              # This file
-```
 
 ### Adding New Features
 
@@ -317,7 +286,7 @@ gmail-drive-mcp-server/
 
 2. **Define Tool Schema**
    ```javascript
-   // In toolDefinitions.js
+   // In tool-definations.js
    {
      name: 'new_feature',
      description: 'What it does',
@@ -327,7 +296,7 @@ gmail-drive-mcp-server/
 
 3. **Add Tool Handler**
    ```javascript
-   // In toolHandlers.js
+   // In tool-handlers.js
    async handleNewFeature(args) {
      // Handle the tool call
    }
@@ -335,7 +304,7 @@ gmail-drive-mcp-server/
 
 4. **Register Tool**
    ```javascript
-   // In server.js switch statement
+   // In server2.js switch statement
    case 'new_feature':
      return await this.handleNewFeature(args);
    ```
