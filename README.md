@@ -11,11 +11,11 @@
 
 Turn Claude into your personal productivity assistant that can:
 
-- 📧 **Manage Gmail** - Send, organize, search, and analyze emails
-- 📅 **Control Google Calendar** - Create meetings, schedule events, send invites
-- 📁 **Organize Google Drive** - Create, share, and manage files and folders  
-- 🎥 **Generate Google Meet links** - Instant video conferencing setup
-- 🔄 **Execute complex workflows** - Multi-step automation across all services
+- **Manage Gmail** - Send, organize, search, and analyze emails
+- **Control Google Calendar** - Create meetings, schedule events, send invites
+- **Organize Google Drive** - Create, share, and manage files and folders  
+- **Generate Google Meet links** - Instant video conferencing setup
+- **Execute complex workflows** - Multi-step automation across all services
 
 ## Key Features
 
