@@ -7,7 +7,7 @@
 [![MCP](https://img.shields.io/badge/MCP-Compatible-blue.svg)](https://modelcontextprotocol.io/)
 [![Google APIs](https://img.shields.io/badge/Google-APIs-red.svg)](https://developers.google.com/)
 
-## 🚀 What This Does
+## What This Does
 
 Turn Claude into your personal productivity assistant that can:
 
@@ -17,23 +17,23 @@ Turn Claude into your personal productivity assistant that can:
 - 🎥 **Generate Google Meet links** - Instant video conferencing setup
 - 🔄 **Execute complex workflows** - Multi-step automation across all services
 
-## ✨ Key Features
+## Key Features
 
-### 📧 Email Management
+### Email Management
 - Search emails with advanced Gmail queries
 - Send professional emails with attachments
 - Organize with labels, archive, star, delete
 - Analyze email patterns and statistics
 - Auto-manage inbox organization
 
-### 📅 Meeting & Calendar
+### Meeting & Calendar
 - Create Google Meet meetings instantly
 - Schedule with natural language ("2 PM today")
 - Automatic timezone handling for global teams
 - Send calendar invites and reminders
 - List and manage upcoming meetings
 
-### 📁 File Operations
+### File Operations
 - Create and edit Google Docs, Sheets, Slides
 - Organize files into structured folders
 - Share files with granular permissions
@@ -47,11 +47,11 @@ Turn Claude into your personal productivity assistant that can:
 - **Team Collaboration**: Streamline group project workflows
 
 
-## 🏗️ Architecture
+## Architecture
 
 ```mermaid
 graph TB
-    User[👤 User] --> Claude[🤖 Claude AI]
+    User[User] --> Claude[Claude AI]
     Claude <==> MCP[MCP Server]
     MCP --> Gmail[Gmail Service]
     MCP --> Calendar[Calendar Service] 
@@ -63,7 +63,7 @@ graph TB
     Drive --> DriveAPI[Drive API]
 ```
 
-## 🛠️ Installation
+## Installation
 
 ### Prerequisites
 
@@ -309,7 +309,7 @@ node test-auth.js
      return await this.handleNewFeature(args);
    ```
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Here's how to get started:
 
@@ -339,7 +339,7 @@ npm install
 
 1. Submit pull request with clear description
 
-## 📊 Roadmap
+## Roadmap
 
 ### Current Version (v2.0)
 - ✅ Gmail, Calendar, Drive integration
@@ -349,7 +349,7 @@ npm install
 - ✅ Security best practices
 
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
@@ -371,7 +371,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Community
 
-- 💼 **LinkedIn**: [Your Profile](https://linkedin.com/in/smitpatel3107)
+- **LinkedIn**: [Your Profile](https://linkedin.com/in/smitpatel3107)
 
 ---
 
