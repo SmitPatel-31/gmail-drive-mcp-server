@@ -317,7 +317,7 @@ We welcome contributions! Here's how to get started:
 
 ```bash
 # Fork the repository
-git clone https://github.com/yourusername/gmail-drive-mcp-server.git
+git clone https://github.com/SmitPatel-31/gmail-drive-mcp-server
 cd gmail-drive-mcp-server
 
 # Create feature branch
