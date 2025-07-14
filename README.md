@@ -381,6 +381,7 @@ Add the MCP server to your Claude configuration:
 ```bash
 # Clear tokens and re-authenticate
 rm token.json
+node auth.js
 node test-auth.js
 ```
 
@@ -395,13 +396,6 @@ node test-auth.js
 # Verify API enablement
 # Check OAuth2 scope configuration
 # Confirm credentials.json format
-```
-
-**Timezone Issues**
-```bash
-# Set explicit timezone in requests
-# Verify system timezone settings
-# Use natural language with timezone context
 ```
 
 ### Error Codes
@@ -445,7 +439,7 @@ node test-auth.js
 
 4. **Register Tool**
    ```javascript
-   // In server2.js switch statement
+   // In server.js switch statement
    case 'new_feature':
      return await this.handleNewFeature(args);
    ```
