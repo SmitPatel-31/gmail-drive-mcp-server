@@ -89,7 +89,7 @@ graph TB
 
 ## Workflow
 
-```
+```meramaid
 ---
 config:
   theme: redux-dark
@@ -132,7 +132,7 @@ sequenceDiagram
 
 ## Server Component
 
-```
+```meramaid
 ---
 config:
   layout: dagre
