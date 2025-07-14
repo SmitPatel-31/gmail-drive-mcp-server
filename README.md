@@ -50,17 +50,158 @@ Turn Claude into your personal productivity assistant that can:
 ## Architecture
 
 ```mermaid
+---
+config:
+  theme: default
+---
 graph TB
-    User[User] --> Claude[Claude AI]
-    Claude <==> MCP[MCP Server]
-    MCP --> Gmail[Gmail Service]
-    MCP --> Calendar[Calendar Service] 
-    MCP --> Drive[Drive Service]
-    MCP --> Meet[Meet Integration]
-    
-    Gmail --> GmailAPI[Gmail API]
-    Calendar --> CalendarAPI[Calendar API]
-    Drive --> DriveAPI[Drive API]
+    User[User<br/>Master's Student] --> Claude[🤖 Claude AI<br/>Chat Interface]
+    Claude <==> MCP[MCP Server<br/>The Brain<br/>Node.js + ES Modules]
+    MCP --> Auth[OAuth2 Auth<br/>Token Management<br/>Security Layer]
+    MCP --> Gmail[Gmail Service<br/>Email Operations]
+    MCP --> Calendar[Calendar Service<br/>Meeting Management]
+    MCP --> Drive[Drive Service<br/>File Operations]
+    MCP --> Meet[Meet Integration<br/>Video Conferencing]
+    Auth --> GoogleAuth[Google OAuth2<br/>Secure Authentication]
+    Gmail --> GmailAPI[Gmail API<br/>Google Servers]
+    Calendar --> CalendarAPI[Calendar API<br/>Google Servers]
+    Drive --> DriveAPI[Drive API<br/>Google Servers]
+    Meet --> MeetAPI[Meet API<br/>Google Servers]
+    Claude -.->|"Create meeting for 2 PM"| MCP
+    MCP -.->|"Tool Call: create_meeting"| Calendar
+    Calendar -.->|"API Request"| CalendarAPI
+    CalendarAPI -.->|"Meeting Created"| Calendar
+    Calendar -.->|"Success Response"| MCP
+    MCP -.->|"Meeting created successfully!"| Claude
+    classDef userStyle fill:#e1f5fe,stroke:#0277bd,stroke-width:2px
+    classDef claudeStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef mcpStyle fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px
+    classDef serviceStyle fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef apiStyle fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef authStyle fill:#fff8e1,stroke:#f9a825,stroke-width:2px
+    class User userStyle
+    class Claude claudeStyle
+    class MCP mcpStyle
+    class Gmail,Calendar,Drive,Meet serviceStyle
+    class GmailAPI,CalendarAPI,DriveAPI,MeetAPI apiStyle
+    class Auth,GoogleAuth authStyle
+```
+
+## Workflow
+
+```
+---
+config:
+  theme: redux-dark
+---
+sequenceDiagram
+    participant U as User
+    participant C as Claude
+    participant MCP as MCP Server
+    participant Auth as Auth Manager
+    participant Gmail as Gmail Service
+    participant Cal as Calendar Service
+    participant Drive as Drive Service
+    participant G as Google APIs
+    Note over U,G: Example: "Create team meeting and send invites"
+    U->>C: "Create a meeting for 2 PM today and invite the team"
+    C->>MCP: Tool Call: create_meeting_and_send
+    MCP->>Auth: Check authentication
+    Auth-->>MCP: Tokens valid
+    par Create Meeting
+        MCP->>Cal: Create calendar event
+        Cal->>G: POST /calendar/events
+        G-->>Cal: Event created with Meet link
+        Cal-->>MCP: Meeting details
+    and Send Invites
+        MCP->>Gmail: Send calendar invites
+        Gmail->>G: POST /gmail/send
+        G-->>Gmail: Emails sent
+        Gmail-->>MCP: Invites sent
+    and Create Document
+        MCP->>Drive: Create meeting notes doc
+        Drive->>G: POST /drive/files
+        G-->>Drive: Document created
+        Drive-->>MCP: Document ready
+    end
+    MCP->>MCP: Compile results
+    MCP-->>C: Success response with details
+    C-->>U: "Meeting created! Invites sent to team. Notes doc ready."
+    Note over U,G: Total time: ~10 seconds for complex workflow
+```
+
+## Server Component
+
+```
+---
+config:
+  layout: dagre
+  theme: base
+  look: classic
+---
+flowchart LR
+ subgraph subGraph0["Core Components"]
+        Server["MCP Server<br>- Request Handler<br>- Tool Registry<br>- Response Formatter"]
+        Auth["Auth Manager<br>- OAuth2 Flow<br>- Token Management<br>- Security Layer"]
+  end
+ subgraph subGraph1["Service Layer"]
+        Gmail["Gmail Service<br>- Search emails<br>- Send emails<br>- Manage labels<br>- Email analysis"]
+        Calendar["Calendar Service<br>- Create events<br>- Schedule meetings<br>- Generate Meet links<br>- Timezone handling"]
+        Drive["Drive Service<br>- Create files<br>- Share documents<br>- Organize folders<br>- Manage permissions"]
+        Meet["Meet Integration<br>- Coordinate workflows<br>- Format invitations<br>- Send reminders<br>- Handle RSVPs"]
+  end
+ subgraph subGraph2["Tool Handlers"]
+        EmailTools["Email Tools<br>- search_emails<br>- send_email<br>- delete_email<br>- create_label"]
+        CalendarTools["Calendar Tools<br>- create_meeting<br>- schedule_event<br>- send_reminder<br>- list_meetings"]
+        DriveTools["Drive Tools<br>- create_file<br>- share_file<br>- organize_folder<br>- update_permissions"]
+        WorkflowTools["Workflow Tools<br>- create_and_send_meet<br>- project_setup<br>- bulk_operations<br>- smart_scheduling"]
+  end
+ subgraph subGraph3["Schema Definitions"]
+        Schemas["Tool Schemas<br>- Input validation<br>- Response formatting<br>- Error handling<br>- Type definitions"]
+  end
+ subgraph subGraph4["MCP Server (The Brain)"]
+    direction TB
+        subGraph0
+        subGraph1
+        subGraph2
+        subGraph3
+  end
+ subgraph subGraph5["External Services"]
+        GoogleAPIs["Google APIs<br>- Gmail API<br>- Calendar API<br>- Drive API<br>- OAuth2 API"]
+  end
+ subgraph subGraph6["Claude Integration"]
+        Claude["Claude AI<br>- Natural language<br>- Tool discovery<br>- Response parsing<br>- Context management"]
+  end
+    Server --> Auth & Gmail & Calendar & Drive & Meet
+    Gmail --> EmailTools & GoogleAPIs
+    Calendar --> CalendarTools & GoogleAPIs
+    Drive --> DriveTools & GoogleAPIs
+    Meet --> WorkflowTools
+    EmailTools --> Schemas
+    CalendarTools --> Schemas
+    DriveTools --> Schemas
+    WorkflowTools --> Schemas
+    Auth --> GoogleAPIs
+    Claude <--> Server
+     Server:::coreStyle
+     Auth:::coreStyle
+     Gmail:::serviceStyle
+     Calendar:::serviceStyle
+     Drive:::serviceStyle
+     Meet:::serviceStyle
+     EmailTools:::toolStyle
+     CalendarTools:::toolStyle
+     DriveTools:::toolStyle
+     WorkflowTools:::toolStyle
+     Schemas:::toolStyle
+     GoogleAPIs:::externalStyle
+     Claude:::claudeStyle
+    classDef coreStyle fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef serviceStyle fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef toolStyle fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef externalStyle fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef claudeStyle fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+
 ```
 
 ## Installation
@@ -75,7 +216,7 @@ graph TB
 ### Step 1: Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/gmail-drive-mcp-server.git
+git clone https://github.com/SmitPatel-31/gmail-drive-mcp-server
 cd gmail-drive-mcp-server
 npm install
 ```
@@ -317,7 +458,7 @@ We welcome contributions! Here's how to get started:
 
 ```bash
 # Fork the repository
-git clone https://github.com/SmitPatel-31/gmail-drive-mcp-server
+git clone https://github.com/your-username/gmail-drive-mcp-server
 cd gmail-drive-mcp-server
 
 # Create feature branch
